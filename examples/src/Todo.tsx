@@ -61,7 +61,7 @@ const App = (): JSX.Element => {
 		if (!text) return
 		const todo = new Todo(text)
 		text$.value = ""
-		// `concat` will return new instance of the array which will
+		// `concat` will return a new instance of the array which will
 		// trigger an update.
 		todos$.value = todos$.value.concat(todo)
 	}
