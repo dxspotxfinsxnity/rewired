@@ -10,6 +10,7 @@ export class Switch<T = any, U = T> implements ISwitch {
 	protected branchFactories = new Map<U, BranchFactory<T>>()
 	#branches = new Map<U, ChildNode>()
 	#comment = document.createComment("")
+	#defaultBranch?: BranchFactory<T>
 	#key: () => U
 	#previousBranch!: ChildNode
 
@@ -34,21 +35,47 @@ export class Switch<T = any, U = T> implements ISwitch {
 		if (typeof branch !== "object")
 			return document.createTextNode(String(branch))
 		if ("subscribe" in branch) return createTextNode(branch)
-		if (Symbol.iterator in branch)
+		if (Array.isArray(branch))
 			console.error("Array is not supported as a branch")
 		else if (!("render" in branch)) return branch as ChildNode
 		else if (branch instanceof Switch) return branch.render()
 		else console.error("Each is not supported as a branch")
 	}
 
+	default(value: BranchFactory<T>): this {
+		this.#defaultBranch = value
+		return this
+	}
+
 	emplaceBranch(key: U): ChildNode | undefined {
-		const branchFactory = this.branchFactories.get(key)
+		const branchFactory =
+			this.branchFactories.get(key) || this.#defaultBranch
 		if (!branchFactory) return
 		const branch = branchFactory(this.state.value)
 		const childNode = this.createChildNode(branch)
 		if (!childNode) return
 		this.#branches.set(key, childNode)
 		return childNode
+	}
+
+	from(
+		branchFactories:
+			| Map<U, BranchFactory<T>>
+			| (U extends PropertyKey
+					? Record<U, BranchFactory<T>>
+					: never),
+	): this {
+		const entries =
+			Symbol.iterator in branchFactories
+				? branchFactories.entries()
+				: Object.entries<BranchFactory<T>>(
+						branchFactories,
+					)
+
+		for (const [key, value] of entries)
+			this.branchFactories.set(key as U, value)
+
+		return this
 	}
 
 	getCurrentBranch(): ChildNode {
