@@ -7,7 +7,10 @@
 		"typescript": "^5.9.2"
 	},
 	"scripts": {
-		"lint": "npx eslint --cache --fix src && npx prettier --cache --write src",
+		"lint": "npx eslint --cache --fix lib/src && npx prettier --cache --write lib/src",
 		"watch": "tsc --watch"
-	}
+	},
+	"workspaces": [
+		"lib"
+	]
 }
