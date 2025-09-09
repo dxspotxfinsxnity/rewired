@@ -28,13 +28,13 @@ const createTodo = (todo$: Observable<Todo>): JSX.Element => {
 	return (
 		<div>
 			<input
-				// `htmlAttrName:htmlEventName`. Access the
-				// nested observable directly through the
-				// observable using two-way binding syntax
+				// Triggering the checkbox would update the
+				// completed$ observable using two-way binding
+				// syntax `htmlAttrName:htmlEventName`. Access
+				// the nested observable directly through the
 				// parent observable. This assumes the todo
 				// won't be re-created with a different
-				// `completed$` observable. Triggering the
-				// checkbox would update the completed$
+				// `completed$` observable.
 				checked:change={todo$.value.completed$}
 				id={id$}
 				type="checkbox"
