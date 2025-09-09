@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"jsx": "react",
+		"jsxFactory": "createElement",
+		"lib": ["DOM", "ES2024"],
+		"module": "ES2022",
+		"outDir": "dist",
+		"strict": true,
+		"target": "ES2024",
+		"types": ["../lib/src/JSX.d.ts"]
+	},
+	"include": ["src/*.tsx"]
+}

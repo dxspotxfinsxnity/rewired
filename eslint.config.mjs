@@ -3,7 +3,7 @@ import perfectionist from "eslint-plugin-perfectionist"
 
 export default [
 	{
-		files: ["**/*.ts"],
+		files: ["**/*.ts", "**/*.tsx"],
 		languageOptions: {
 			parser,
 		},
