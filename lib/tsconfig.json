@@ -5,7 +5,7 @@
 		"outDir": "dist",
 		"strict": true,
 		"target": "ES2024",
-		"types": ["./src/global.d.ts"]
+		"types": ["./src/JSX.d.ts"]
 	},
 	"include": ["src/*.ts", "src/components/*.ts", "src/core/*.ts"]
 }
