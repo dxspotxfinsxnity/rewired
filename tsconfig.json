@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"lib": ["DOM", "ES2024"],
+		"module": "ES2022",
+		"outDir": "dist",
+		"strict": true,
+		"target": "ES2024",
+		"types": ["./src/global.d.ts"]
+	},
+	"include": ["src/*.ts", "src/components/*.ts", "src/core/*.ts"]
+}
