@@ -9,7 +9,7 @@ export function style(
 	reference: WeakRef<HTMLElement>,
 ): void {
 	if (typeof cssText === "string" || cssText === null) {
-		element.style.setProperty("cssText", cssText)
+		element.style = cssText || ""
 	} else if ("subscribe" in cssText) {
 		sync("style", cssText, element, reference, get, set)
 	} else {

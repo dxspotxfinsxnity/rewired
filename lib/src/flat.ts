@@ -14,7 +14,7 @@ export function* flat(
 				else yield value
 			} else if ("subscribe" in i) {
 				yield createTextNode(i)
-			} else if (Symbol.iterator in i) {
+			} else if (Array.isArray(i)) {
 				yield* flat(reference, ...i)
 			} else {
 				yield i

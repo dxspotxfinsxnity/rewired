@@ -33,6 +33,8 @@ export type PickBy<T, U> = {
 }
 
 export type Props<T extends keyof HTMLElementTagNameMap> = {
+	[P in keyof Attrs[T]]?: Attrs[T][P] | IObservable<Attrs[T][P]>
+} & {
 	[P in keyof Attrs[T] as `${P & string}:${keyof HTMLElementEventMap}`]?: IObservable<
 		Attrs[T][P]
 	>
@@ -41,19 +43,18 @@ export type Props<T extends keyof HTMLElementTagNameMap> = {
 		? U
 		: never]?: HTMLElementTagNameMap[T][P]
 } & {
-	dataset?: Record<
-		string,
-		DOMStringMap[string] | IObservable<DOMStringMap[string]>
-	>
-	style?: {
-		[key: `--${string}`]: CSSValue
-	} & {
-		[P in keyof CSSStyleDeclaration as CSSStyleDeclaration[P] extends
-			| null
-			| string
-			? P
-			: never]?: CSSValue
-	}
-} & Partial<Attrs[T]>
+	dataset?: Record<string, IObservable<TextContent> | TextContent>
+	style?:
+		| ({
+				[key: `--${string}`]: CSSValue
+		  } & {
+				[P in keyof CSSStyleDeclaration as CSSStyleDeclaration[P] extends
+					| null
+					| string
+					? P
+					: never]?: CSSValue
+		  })
+		| CSSValue
+}
 
-export type TextContent = boolean | null | number | string
+export type TextContent = boolean | number | string

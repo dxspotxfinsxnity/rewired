@@ -8,6 +8,7 @@ declare global {
 			| IObservable<TextContent>
 			| ISwitch
 			| Node
+			| null
 			| TextContent
 
 		type IntrinsicElements = {
